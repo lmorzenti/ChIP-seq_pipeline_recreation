@@ -1,0 +1,9 @@
+﻿Sample	Reads mapped	% Dropped	Dups	GC	Seqs
+INPUT_rep1	.	0.95	10.586419325505275	43	30.075142	
+INPUT_rep1_flagstat	28.253593	.	.	.	.	
+INPUT_rep2	.	1.25	12.993281211525783	43	10.900442	
+INPUT_rep2_flagstat	10.06944	.	.	.	.	
+IP_rep1	.	1.11	89.13096139250061	47	29.734121	
+IP_rep1_flagstat	27.969493999999997	.	.	.	.	
+IP_rep2	.	1	74.28704576214216	46	29.988988	
+IP_rep2_flagstat	28.351782999999998	.	.	.	.	
