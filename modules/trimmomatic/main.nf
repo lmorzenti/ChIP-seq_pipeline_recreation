@@ -18,9 +18,7 @@ process TRIM {
     """
     trimmomatic SE -phred33 ${reads} ${sample_id}_trimmed.fastq.gz ILLUMINACLIP:TruSeq3-SE:2:30:10 LEADING:3 TRAILING:3 SLIDINGWINDOW:4:15 MINLEN:36 2>&1 | tee ${sample_id}_trim.log
     """
-    //I am sticking with default settings
-    //you have to specify the input fastq file
-    //you also have to specify the name of the output fastq
+    // This command uses the default settings of Trimmomatic.
 
     stub:
     """

@@ -1,32 +1,28 @@
-# Project 3 Nextflow Template
+# Recreation of ChIP-seq Analysis from "RUNX1 contributes to higher-order chromatin organization and gene regulation in breast cancer cells", Barutcu et al., 2016.
 
-For this project, remember to keep in a few things:
+## Background
+The RUNX1 transcription factor is a part of a family of proteins that are known for being master regulators. Their well defined behavior has inherently tied them into playing important roles in cancer development. RUNX1 specifically has been strongly associated with breast cancer, where it can act as both a tumor suppressor and an oncogene. RUNX1 acts through the alteration of chromatin structure alongside other chromatin modifiers and remodeling enzymes. The study in question specifically aimed to investigate the relationship between RUNX1 mediated transcription and the resulting genome organization. As changes in nuclear architecture are often observed in cases of breast cancer alongside the overexpression of RUNX1, investigating this relationship will help make a more complete picture into breast cancer development. To approach this problem, the authors used a variety of different methods with two conditions, cells with a suppression RUNX1 and cells with no suppression of RUNX1. First, the authors employed a Hi-C approach in order to examine both inter- and intra-chromosomal interactions between both conditions. Next, they utilized RNA-seq analysis in order to compare the gene expression profile of these two conditions. In addition to this, the authors performed a ChIP-seq analysis in order to investigate RUNX1-mediated regulation of chromatin organization through its binding patterns on the chromatin.
 
-1. Most of the required references and files can be found in your `nextflow.config`
+## Data Source
+This project uses single end Chip-seq reads that were generated from Barutcu et al. (2016), which investigates if RUNX1-dependent differences in gene expression that the authors previously determined were related to RUNX1 binding.  
 
-2. Make sure you give each process a label to request an appropriate amount of resources
+**Data**: ChIP-seq data from NCBI GEO, accession code: GSE75070.
 
-3. Use the singularity containers provided on the website directions for the project
+## Running the Pipeline
+Prerequisites: Ensure that you have nextflow installed and ready to use on your system.
 
-4. I have given you valid stub commands that will let you troubleshoot your workflow logic using the `-stub-run` command
-- The stub-run commands assume that the first element in the tuple from the initial channel is named `sample_id` in processes
-- Ensure that the appropriate inputs for certain processes are a tuple with the first element being the name from the initial channel
-- The findPeaks stub will not be the same as `sample_id`. Remember that you will need to run findPeaks using the paired samples
-(IP_rep1 + INPUT_rep1) and (IP_rep2 + INPUT_rep2). You should name the peak outputs using the replicate (i.e. rep1_peaks.txt and rep2_peaks.txt)
-- You may alter the names used in the stub-run if it's easier for you
+Clone this repository 
+``` bash 
+git clone <ssh>
+cd <this-project-directory>
+``` 
 
-The stub runs assume that you have something like below so that it can name the fake files using the sample names - this will ensure
-that your stub runs execute the same number of processes as the full pipeline should.
+Running this pipeline
+``` bash
+nextflow run main.nf -profile singularity,cluster
 ```
-input:
-tuple val(sample_id), path(file)
-```
 
-5. Use the subsampled data to start out with - you may need to eventually switch to the full data before your
-pipeline is technically complete as sometimes peak calling may fail if not given enough input reads. 
-- When the pipeline is working, change the `params` value in the original channel to the params encoding the
-location of the full_samplesheet.csv
+This pipeline assumes that it will receive the data in a csv file formatted as ‘name,path-to-file’ with the data stored in fastq.gz files. The names of the files are expected to resemble ‘<IP or Control>_rep<1 or 2>.fastq.gz’. The pipeline will take this csv file to pass the data through preprocessing, quality control, peak calling, peak annotation, and motif finding. The analysis of the data consists of the replication of 3 key figures from Barutcu et al. (2016) that is done in a Jupyter Notebook labeled as ‘figure_creation_workbook.ipynb’. An example discussion of the recreation can be found in a Jupyter Notebook labeled as ‘discussion_notebook.ipynb’.
 
-6. To remove regions using the blacklist, there are optional flags available in the `bedtools intersect` command
-
-7. Create a single jupyter notebook that contains all of the results / figures and your write-up
+## Citation
+1. Barutcu AR, Hong D, Lajoie BR, McCord RP, van Wijnen AJ, Lian JB, Stein JL, Dekker J, Imbalzano AN, Stein GS. RUNX1 contributes to higher-order chromatin organization and gene regulation in breast cancer cells. Biochim Biophys Acta. 2016 Nov;1859(11):1389-1397. doi: 10.1016/j.bbagrm.2016.08.003. Epub 2016 Aug 9. PMID: 27514584; PMCID: PMC5071180.
